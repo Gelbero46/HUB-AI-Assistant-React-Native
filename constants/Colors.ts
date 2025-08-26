@@ -1,26 +1,40 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
 
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+  // Primary brand colors (based on M1 app aesthetic)
+  primary: '#007AFF',
+  primaryDark: '#0051D3',
+  primaryLight: '#4DA3FF',
+  
+  // Background colors
+  background: '#FFFFFF',
+  backgroundSecondary: '#F8F9FA',
+  backgroundDark: '#181818',
+  
+  // Text colors
+  text: '#1C1C1E',
+  textSecondary: '#8E8E93',
+  textLight: '#C7C7CC',
+  textWhite: '#FFFFFF',
+  
+  // UI colors
+  success: '#34C759',
+  warning: '#FF9500',
+  error: '#FF3B30',
+  info: '#007AFF',
+  
+  // Chat colors
+  userMessage: '#007AFF',
+  aiMessage: '#F0F0F0',
+  
+  // Call status colors
+  incoming: '#34C759',
+  outgoing: '#007AFF',
+  missed: '#FF3B30',
+  
+  // Border colors
+  border: '#E5E5EA',
+  borderLight: '#F2F2F7',
+  
+  // Shadow
+  shadow: '#000000',
 };
