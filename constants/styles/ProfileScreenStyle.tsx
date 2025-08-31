@@ -1,10 +1,12 @@
+import { Colors, Fonts, Sizes } from "@/types";
 import { StyleSheet } from "react-native";
-import type { Theme } from "@react-navigation/native";
-import { Sizes, Fonts, Colors as colors } from "@/constants";
 
 
-
-const ProfileScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => StyleSheet.create({
+const ProfileScreenStyle = ({ Colors, Fonts, Sizes }: { 
+  Colors: Colors
+  Fonts: Fonts
+  Sizes: Sizes
+}) => StyleSheet.create({
    container: {
       flex: 1,
       backgroundColor: Colors.background,
@@ -28,24 +30,24 @@ const ProfileScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => StyleShe
     },
     avatarText: {
       fontSize: 32,
-      fontFamily: Fonts.bold,
+      fontWeight: Fonts.weights.bold,
       color: Colors.text,
     },
     name: {
       fontSize: Sizes.fontXl,
-      fontFamily: Fonts.semiBold,
+      fontWeight: Fonts.weights.medium,
       color: Colors.text,
       marginBottom: Sizes.xs,
     },
     email: {
       fontSize: Sizes.fontMd,
-      fontFamily: Fonts.regular,
+      fontWeight: Fonts.weights.regular,
       color: Colors.text,
       marginBottom: Sizes.xs,
     },
     business: {
       fontSize: Sizes.fontSm,
-      fontFamily: Fonts.medium,
+      fontWeight: Fonts.weights.semiBold,
       color: Colors.primary,
     },
     menuSection: {
@@ -58,7 +60,7 @@ const ProfileScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => StyleShe
       paddingHorizontal: Sizes.md,
       paddingVertical: Sizes.lg,
       borderBottomWidth: 1,
-      borderBottomColor: colors.borderLight,
+      borderBottomColor: Colors.border,
     },
     menuIcon: {
       fontSize: 20,
@@ -67,7 +69,7 @@ const ProfileScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => StyleShe
     menuTitle: {
       flex: 1,
       fontSize: Sizes.fontMd,
-      fontFamily: Fonts.medium,
+      fontWeight: Fonts.weights.medium,
       color: Colors.text,
     },
     menuChevron: {
@@ -78,7 +80,7 @@ const ProfileScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => StyleShe
       padding: Sizes.xl,
     },
     logoutButton: {
-      borderColor: colors.error,
+      borderColor: Colors.error,
     },
 });
 

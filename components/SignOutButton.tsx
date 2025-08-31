@@ -1,8 +1,9 @@
+import { useTheme } from '@/context/theme-context'
 import { useClerk } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
-import { Text, TouchableOpacity } from 'react-native'
 import { Button } from './Button'
 export const SignOutButton = () => {
+  const {colors} = useTheme()
   const { signOut } = useClerk()
   const router = useRouter()
 
@@ -20,7 +21,7 @@ export const SignOutButton = () => {
             title="Sign out"
             onPress={handleSignOut}
             // isLoading={isLoading}
-            // style={styles.loginButton}
+            style={{color: colors.textWhite}}
           />
   )
 }

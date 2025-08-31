@@ -1,10 +1,10 @@
 import { useSignIn } from '@clerk/clerk-expo'
 // import { useNavigation } from '@react-navigation/native';
 import { Button, Input } from '@/components'
-import { Sizes, Colors as colors } from '@/constants'
-import { useTheme as _useTheme } from "@/context/theme-context"
+// import { Sizes, Colors as colors } from '@/constants'
+import { useTheme } from "@/context/theme-context"
 import { useColorScheme } from '@/hooks/useColorScheme'
-import { useTheme } from '@react-navigation/native'
+// import { useTheme } from '@react-navigation/native'
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import {
@@ -23,8 +23,8 @@ export default function Page() {
   console.log("colorScheme", colorScheme)
 
   const router = useRouter()
-  const { colors: Colors, fonts: Fonts, } = useTheme();
-  const {theme} = _useTheme()
+  const { colors: Colors, fonts: Fonts, sizes: Sizes, theme } = useTheme();
+
   console.log("theme", theme)
 
   const [emailAddress, setEmailAddress] = React.useState('')
@@ -76,22 +76,22 @@ export default function Page() {
   },
   logo: {
     fontSize: 48,
-    fontFamily: Fonts.bold.fontFamily,
-    fontWeight: Fonts.bold.fontWeight,
+    fontFamily: Fonts.fontFamily,
+    fontWeight: Fonts.weights.semiBold,
     color: Colors.primary,
     marginBottom: Sizes.md,
   },
   title: {
     fontSize: Sizes.fontTitle,
-    fontFamily: Fonts.bold.fontFamily,
-    fontWeight: Fonts.heavy.fontWeight,
+    fontFamily: Fonts.fontFamily,
+    fontWeight: Fonts.weights.semiBold,
     color: Colors.text,
     marginBottom: Sizes.sm,
   },
   subtitle: {
     fontSize: Sizes.fontMd,
-    fontFamily: Fonts.regular.fontFamily,
-    color: colors.textSecondary,
+    fontWeight: Fonts.weights.light,
+    color: Colors.textSecondary,
     textAlign: 'center',
   },
   form: {
@@ -103,7 +103,7 @@ export default function Page() {
   signupButton: {
     marginTop: Sizes.md,
   },
-}), [Colors]);
+}), [theme]);
 
   return (
      <KeyboardAvoidingView

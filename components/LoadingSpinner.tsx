@@ -1,10 +1,10 @@
+import { Colors, Sizes } from '@/constants';
 import React from 'react';
 import {
-  View,
   ActivityIndicator,
   StyleSheet,
+  View,
 } from 'react-native';
-import { Colors, Sizes } from '@/constants';
 
 interface LoadingSpinnerProps {
   size?: 'small' | 'large';

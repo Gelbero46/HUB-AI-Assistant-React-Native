@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
   ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { ButtonProps } from '../types';
-import { useTheme } from '@react-navigation/native';
+// import { useTheme } from '@react-navigation/native';
+import { useTheme } from '@/context/theme-context';
 // import {  Colors, Sizes, Fonts } from '../constants';
-import { Sizes, Fonts } from '@/constants';
+// import { Sizes, Fonts } from '@/constants';
 
 export const Button: React.FC<ButtonProps> = ({
   title,
@@ -23,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
 
   // const { Colors, toggleTheme } = useTheme();
-  const {colors: Colors} = useTheme()
+  const {colors: Colors, fonts: Fonts, sizes: Sizes} = useTheme()
 
   const styles = React.useMemo( () => StyleSheet.create({
   button: {
@@ -67,11 +68,11 @@ export const Button: React.FC<ButtonProps> = ({
   },
   // Text styles
   text: {
-    fontFamily: Fonts.semiBold,
+    fontWeight: Fonts.weights.semiBold,
     textAlign: 'center',
   },
   primaryText: {
-    color: Colors.text,
+    color: Colors.textWhite,
     fontSize: Sizes.fontMd,
   },
   secondaryText: {

@@ -1,16 +1,14 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 // import { useTheme as _useTheme } from "@react-navigation/native";
 // import { useTheme } from '../context/theme-context';
 import { useTheme } from '@/context/theme-context';
-import { useRouter } from 'expo-router';
 
-export default function HomeScreen() {
-  const router = useRouter()
-  const { colors, theme, toggleTheme } = useTheme();
-  // const {  } = useTheme()
+
+export default function ToggleThemeButton() {
+  // const { colors } = _useTheme();
+  const { colors, theme, toggleTheme } = useTheme()
   return (
-    <View style={{marginTop: 50}}>
-        <Text style={{color: colors.text}}>contacts here!</Text>
+    <View style={{margin: 20}}>
         <Button title={`Switch to ${theme === "light" ? "Dark" : "Light"} Mode`} onPress={toggleTheme} />
     </View>
   );

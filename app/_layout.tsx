@@ -9,24 +9,29 @@ import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+console.log(MyDarkTheme.colors.card)
+
 function RootLayout() {
-  const { theme } = useTheme(); // will now come from top-level provider
-  console.log("themerrrrr", theme);
+  const { theme, isDark } = useTheme();
 
   return (
     <ClerkProvider tokenCache={tokenCache}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider>
-          <NavThemeProvider value={theme === "dark" ? MyDarkTheme : MyLightTheme}>
+          <NavThemeProvider value={isDark ? MyDarkTheme : MyLightTheme}>
             <Stack
               screenOptions={{
-                statusBarStyle: theme === "dark" ? "light" : "dark",
+                statusBarStyle: isDark ? "light" : "dark",
+                headerStyle: {
+                  backgroundColor: isDark ? MyDarkTheme.colors.card : MyLightTheme.colors.card,
+                },
+                headerTintColor: isDark ? MyDarkTheme.colors.text : MyLightTheme.colors.text,
               }}
             >
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="+not-found" />
             </Stack>
-            <StatusBar style={theme === "dark" ? "light" : "dark"} />
+            <StatusBar style={isDark ? "light" : "dark"} />
           </NavThemeProvider>
         </SafeAreaProvider>
       </GestureHandlerRootView>
@@ -36,7 +41,7 @@ function RootLayout() {
 
 export default function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider >
       <RootLayout />
     </ThemeProvider>
   );

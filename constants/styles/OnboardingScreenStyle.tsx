@@ -1,10 +1,10 @@
+import { Colors, Fonts, Sizes } from "@/types";
 import { StyleSheet } from "react-native";
-import type { Theme } from "@react-navigation/native";
-import { Sizes, Fonts } from "@/constants";
 
 
 
-const OnboardingScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => StyleSheet.create({
+const OnboardingScreenStyle = ({ Colors, Fonts, Sizes }: 
+  { Colors: Colors, Fonts: Fonts, Sizes: Sizes  }) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
@@ -22,14 +22,14 @@ const OnboardingScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => Style
   },
   title: {
     fontSize: Sizes.fontXl,
-    // fontFamily: Fonts.semiBold,
+    fontWeight: Fonts.weights.semiBold,
     color: Colors.text,
     marginBottom: Sizes.sm,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: Sizes.fontMd,
-    fontFamily: Fonts.regular,
+    fontFamily: Fonts.fontFamily,
     color: Colors.text,
     textAlign: 'center',
     lineHeight: 22,
@@ -44,7 +44,7 @@ const OnboardingScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => Style
   },
   welcomeText: {
     fontSize: Sizes.fontMd,
-    fontFamily: Fonts.regular,
+    fontFamily: Fonts.fontFamily,
     color: Colors.text,
     textAlign: 'center',
     marginBottom: Sizes.lg,
@@ -55,7 +55,7 @@ const OnboardingScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => Style
   },
   feature: {
     fontSize: Sizes.fontMd,
-    fontFamily: Fonts.regular,
+    fontWeight: Fonts.weights.regular,
     color: Colors.text,
     marginBottom: Sizes.md,
     paddingLeft: Sizes.md,
@@ -68,7 +68,7 @@ const OnboardingScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => Style
   },
   completionText: {
     fontSize: Sizes.fontMd,
-    fontFamily: Fonts.regular,
+    fontWeight: Fonts.weights.regular,
     color: Colors.text,
     textAlign: 'center',
     marginBottom: Sizes.lg,
@@ -76,7 +76,7 @@ const OnboardingScreenStyle = ({ Colors }: { Colors: Theme['colors'] }) => Style
   },
   completionSubtext: {
     fontSize: Sizes.fontMd,
-    fontFamily: Fonts.medium,
+    fontWeight: Fonts.weights.medium,
     color: Colors.primary,
     textAlign: 'center',
     marginTop: Sizes.lg,

@@ -1,32 +1,63 @@
-// theme-context.tsx
-import { createContext, useContext, useState, ReactNode } from "react";
+import { darkTheme, lightTheme } from "@/constants/theme";
+import type { AppTheme, Colors, Fonts, Sizes, ThemeMode } from "@/types";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { useColorScheme as useSystemColorScheme } from "react-native";
 
-type Theme = "light" | "dark";
-
-const ThemeContext = createContext<{
-  theme: Theme;
+interface ThemeContextType {
+  theme: ThemeMode;
+  appTheme: AppTheme;
+  colors: Colors;
+  fonts: Fonts;
+  sizes: Sizes;
+  isDark: boolean;
   toggleTheme: () => void;
-}>({
-  theme: "light",
-  toggleTheme: () => {},
-});
+  setTheme: (theme: ThemeMode) => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const systemTheme = useSystemColorScheme() ?? "light"; // fallback
-  const [theme, setTheme] = useState<Theme>(systemTheme);
+  const systemTheme = useSystemColorScheme() ?? "light";
+  const [theme, setThemeState] = useState<ThemeMode>(systemTheme);
+
+  // Update theme when system theme changes
+  useEffect(() => {
+    setThemeState(systemTheme);
+  }, [systemTheme]);
+
+  const appTheme = theme === "dark" ? darkTheme : lightTheme;
+  const isDark = theme === "dark";
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    setThemeState((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  const setTheme = (newTheme: ThemeMode) => {
+    setThemeState(newTheme);
+  };
+
+  const value: ThemeContextType = {
+    theme,
+    appTheme,
+    colors: appTheme.colors,
+    fonts: appTheme.fonts,
+    sizes: appTheme.sizes,
+    isDark,
+    toggleTheme,
+    setTheme,
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
-export function useTheme() {
-  return useContext(ThemeContext);
+export function useTheme(): ThemeContextType {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
 }

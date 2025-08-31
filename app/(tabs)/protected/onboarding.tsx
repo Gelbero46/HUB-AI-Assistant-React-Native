@@ -1,12 +1,11 @@
-
 import { Button, Header, Input } from '@/components';
 import OnboardingScreenStyle from '@/constants/styles/OnboardingScreenStyle';
-import React, { useEffect, useState } from 'react';
-import { Link, useRouter } from 'expo-router'
 import { useUser } from '@clerk/clerk-expo';
-import { useTheme } from '@react-navigation/native';
-import { useTheme as _useTheme } from '@/context/theme-context';
-import { useAuth } from '@clerk/clerk-expo'
+import { useRouter } from 'expo-router';
+import React, { useEffect, useMemo, useState } from 'react';
+// import { useTheme } from '@react-navigation/native';
+import { useTheme } from '@/context/theme-context';
+import { useAuth } from '@clerk/clerk-expo';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -29,10 +28,13 @@ const OnboardingScreen: React.FC = () => {
 
  
   // console.log("user in onboarding", user)
-  const {colors: Colors, fonts: Fonts} = useTheme()
-   const {theme, toggleTheme} = _useTheme()
+  const {colors: Colors, fonts: Fonts, sizes: Sizes, theme} = useTheme()
+  //  const {theme, toggleTheme} = _useTheme()
    console.log("theme", theme)
-  const styles = OnboardingScreenStyle({Colors})
+  const styles = useMemo( () => 
+    OnboardingScreenStyle({Colors, Fonts, Sizes}),
+  [theme]
+)
   
 
  

@@ -1,18 +1,22 @@
 import * as React from 'react'
 
-import { Text, View, 
-  KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Alert } from 'react-native'
+import {
+  Alert,
+  KeyboardAvoidingView, Platform, ScrollView, StyleSheet,
+  Text, View
+} from 'react-native'
   
 import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
-import { useTheme } from '@react-navigation/native'
-import { Sizes, Colors as colors } from '@/constants'
+import { useRouter } from 'expo-router'
+// import { useTheme } from '@react-navigation/native'
 import { Button, Input } from '@/components'
+import { Sizes, Colors as colors } from '@/constants'
+import { useTheme } from '@/context/theme-context'
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
-  const { colors: Colors, fonts: Fonts } = useTheme()
+  const { colors: Colors, fonts: Fonts, theme } = useTheme()
 
   const [emailAddress, setEmailAddress] = React.useState<string>('')
   const [password, setPassword] = React.useState<string>('')
@@ -45,19 +49,20 @@ export default function SignUpScreen() {
     },
     logo: {
       fontSize: 48,
-      fontWeight: Fonts.bold.fontWeight,
+      fontWeight: Fonts.weights.bold,
       color: Colors.primary,
+
       marginBottom: Sizes.md,
     },
     title: {
       fontSize: Sizes.fontTitle,
-      fontWeight: Fonts.bold.fontWeight,
-      color: Colors.text,
+      fontWeight: Fonts.weights.semiBold,
+      color: Colors.textSecondary,
       marginBottom: Sizes.sm,
     },
     subtitle: {
       fontSize: Sizes.fontMd,
-      fontWeight: Fonts.regular.fontWeight,
+      fontWeight: Fonts.weights.light,
       color: colors.textSecondary,
       textAlign: 'center',
     },
@@ -86,11 +91,11 @@ export default function SignUpScreen() {
     },
     verificationTitle: {
       fontSize: Sizes.fontTitle,
-      fontWeight: Fonts.bold.fontWeight,
+      fontWeight: Fonts.weights.regular,
       color: Colors.text,
       marginBottom: Sizes.lg,
     },
-  }), [Colors, Fonts])
+  }), [theme])
 
   const navigateToLogin = () => {
     router.replace('/' as never)

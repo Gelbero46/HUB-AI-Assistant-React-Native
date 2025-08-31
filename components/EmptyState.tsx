@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useTheme } from '@react-navigation/native';
-import { useTheme as _useTheme } from '@/context/theme-context';
-import { Sizes, Colors as colors } from '@/constants';
+import { StyleSheet, Text, View } from 'react-native';
+// import { useTheme } from '@react-navigation/native';
+import { useTheme } from '@/context/theme-context';
+// import { Sizes, Colors as colors } from '@/constants';
 import { Button } from './Button';
 
 interface EmptyStateProps {
@@ -22,8 +22,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onActionPress,
   style,
 }) => {
-  const {colors: Colors, fonts: Fonts} = useTheme();
-  const { theme } = _useTheme();
+  const {colors: Colors, fonts: Fonts, sizes: Sizes, theme} = useTheme();
+  // const { theme } = useTheme();
 
   const styles = React.useMemo(
     () =>
@@ -40,15 +40,15 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         },
         title: {
           fontSize: Sizes.fontXl,
-          fontFamily: Fonts.bold.fontFamily,
+          fontWeight: Fonts.weights.bold,
           color: Colors.text,
           textAlign: 'center',
           marginBottom: Sizes.sm,
         },
         subtitle: {
           fontSize: Sizes.fontMd,
-          fontFamily: Fonts.regular.fontFamily,
-          color: `${ theme == 'light'? colors.textSecondary: Colors.text}`,
+          fontWeight: Fonts.weights.regular,
+          color: `${ theme == 'light'? Colors.textSecondary: Colors.text}`,
           textAlign: 'center',
           marginBottom: Sizes.xl,
           lineHeight: 22,
@@ -57,7 +57,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           minWidth: 200,
         },
       }),
-    [Colors]
+    [theme]
   );
 
   return (

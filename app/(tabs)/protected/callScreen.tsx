@@ -1,22 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
+  Grid3x3,
+  Mic,
+  MicOff,
+  PhoneOff,
+  Volume2,
+  VolumeX
+} from 'lucide-react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
   Animated,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 // import { useCall } from '../hooks';
-import { Colors, Sizes, Fonts, CallStatus } from '@/constants';
 import { RootStackParamList } from '@/types';
+// import { createCallScreenStyles } from '@constants/styles/CallScreen.styles';
+import { createCallScreenStyles } from '@/constants/styles/CallScreen.styles';
+import { useTheme } from '@/context/theme-context';
 
 type CallScreenRouteProp = RouteProp<RootStackParamList, 'CallScreen'>;
 
-export const CallScreen: React.FC = () => {
+const CallScreen: React.FC = () => {
   const route = useRoute<CallScreenRouteProp>();
   const navigation = useNavigation();
-  const { contactId, phoneNumber } = route.params;
+  const { colors, fonts, sizes } = useTheme();
+  const { contactId, phoneNumber } = route.params ?? {};
   
   // const {
   //   currentCall,
@@ -31,7 +41,14 @@ export const CallScreen: React.FC = () => {
   // } = useCall();
 
   const [callDuration, setCallDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isSpeakerOn, setIsSpeakerOn] = useState(false);
   const pulseAnim = new Animated.Value(1);
+
+  const styles = useMemo(() => 
+    createCallScreenStyles(colors, fonts, sizes ), 
+    [colors, fonts]
+  );
 
   // useEffect(() => {
   //   if (!currentCall) {
@@ -40,7 +57,7 @@ export const CallScreen: React.FC = () => {
   // }, []);
 
   // useEffect(() => {
-  //   let interval:  ReturnType<typeof setInterval>;
+  //   let interval: ReturnType<typeof setInterval>;
     
   //   if (currentCall?.status === CallStatus.CONNECTED) {
   //     interval = setInterval(() => {
@@ -53,26 +70,26 @@ export const CallScreen: React.FC = () => {
   //   };
   // }, [currentCall?.status]);
 
-  // useEffect(() => {
-  //   // Pulse animation for connecting state
-  //   if (currentCall?.status === CallStatus.CONNECTING) {
-  //     const pulse = () => {
-  //       Animated.sequence([
-  //         Animated.timing(pulseAnim, {
-  //           toValue: 1.1,
-  //           duration: 1000,
-  //           useNativeDriver: true,
-  //         }),
-  //         Animated.timing(pulseAnim, {
-  //           toValue: 1,
-  //           duration: 1000,
-  //           useNativeDriver: true,
-  //         }),
-  //       ]).start(pulse);
-  //     };
-  //     pulse();
-  //   }
-  // }, [currentCall?.status]);
+  useEffect(() => {
+    // Pulse animation for connecting state
+    // if (currentCall?.status === CallStatus.CONNECTING) {
+      const pulse = () => {
+        Animated.sequence([
+          Animated.timing(pulseAnim, {
+            toValue: 1.1,
+            duration: 1500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnim, {
+            toValue: 1,
+            duration: 1500,
+            useNativeDriver: true,
+          }),
+        ]).start(pulse);
+      };
+      pulse();
+    // }
+  }, []);
 
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -85,6 +102,18 @@ export const CallScreen: React.FC = () => {
   //   navigation.goBack();
   // };
 
+  const handleEndCall = () => {
+    navigation.goBack();
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
+  const toggleSpeaker = () => {
+    setIsSpeakerOn(!isSpeakerOn);
+  };
+
   // const getStatusText = () => {
   //   switch (currentCall?.status) {
   //     case CallStatus.CONNECTING:
@@ -96,7 +125,12 @@ export const CallScreen: React.FC = () => {
   //   }
   // };
 
+  const getStatusText = () => {
+    return 'Connecting...';
+  };
+
   // const contactName = currentCall?.contact.name || phoneNumber;
+  const contactName = phoneNumber || 'Unknown';
 
   return (
     <View style={styles.container}>
@@ -106,37 +140,75 @@ export const CallScreen: React.FC = () => {
           { transform: [{ scale: pulseAnim }] }
         ]}>
           <Text style={styles.avatarText}>
-            {/* {contactName.charAt(0).toUpperCase()} */}
+            {contactName.charAt(0).toUpperCase()}
           </Text>
         </Animated.View>
         
-        {/* <Text style={styles.name}>{contactName}</Text> */}
-        {/* //<Text style={styles.status}>{getStatusText()}</Text> */}
+        <Text style={styles.name}>{contactName}</Text>
+        
+        <View style={styles.statusContainer}>
+          <Text style={styles.status}>{getStatusText()}</Text>
+        </View>
+        
         <Text style={styles.phone}>{phoneNumber}</Text>
       </View>
 
       <View style={styles.actions}>
         <TouchableOpacity
-          // style={[styles.actionButton, isMuted && styles.actionButtonActive]}
-          // onPress={toggleMute}
+          style={[styles.actionButton, isMuted && styles.actionButtonActive]}
+          onPress={toggleMute}
+          activeOpacity={0.8}
         >
-          <Text style={styles.actionIcon}>🔇</Text>
-          <Text style={styles.actionLabel}>Mute</Text>
+          <View style={styles.actionIconContainer}>
+            {isMuted ? (
+              <MicOff 
+                size={28} 
+                color={isMuted ? colors.text : "#8E8E93"} 
+              />
+            ) : (
+              <Mic 
+                size={28} 
+                color={colors.text} 
+              />
+            )}
+          </View>
+          <Text style={styles.actionLabel}>
+            {isMuted ? 'Unmute' : 'Mute'}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          // style={[styles.actionButton, isSpeakerOn && styles.actionButtonActive]}
-          // onPress={toggleSpeaker}
+          style={[styles.actionButton, isSpeakerOn && styles.actionButtonActive]}
+          onPress={toggleSpeaker}
+          activeOpacity={0.8}
         >
-          <Text style={styles.actionIcon}>🔊</Text>
+          <View style={styles.actionIconContainer}>
+            {isSpeakerOn ? (
+              <Volume2 
+                size={28} 
+                color={isSpeakerOn ? colors.text : "#8E8E93"} 
+              />
+            ) : (
+              <VolumeX 
+                size={28} 
+                color="#8E8E93"
+              />
+            )}
+          </View>
           <Text style={styles.actionLabel}>Speaker</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => console.log('Keypad')}
+          activeOpacity={0.8}
         >
-          <Text style={styles.actionIcon}>⌨️</Text>
+          <View style={styles.actionIconContainer}>
+            <Grid3x3 
+              size={28} 
+              color={"#8E8E93"} 
+            />
+          </View>
           <Text style={styles.actionLabel}>Keypad</Text>
         </TouchableOpacity>
       </View>
@@ -144,95 +216,17 @@ export const CallScreen: React.FC = () => {
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.endCallButton}
-          // onPress={handleEndCall}
+          onPress={handleEndCall}
+          activeOpacity={0.8}
         >
-          <Text style={styles.endCallIcon}>📞</Text>
+          <PhoneOff 
+            size={32} 
+            color={colors.text} 
+          />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backgroundDark,
-    justifyContent: 'space-between',
-    paddingVertical: Sizes.xxl,
-  },
-  header: {
-    alignItems: 'center',
-    paddingTop: Sizes.xxl,
-  },
-  avatar: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: Colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: Sizes.xl,
-  },
-  avatarText: {
-    fontSize: 60,
-    fontFamily: Fonts.bold,
-    color: Colors.textWhite,
-  },
-  name: {
-    fontSize: Sizes.fontTitle,
-    fontFamily: Fonts.semiBold,
-    color: Colors.textWhite,
-    marginBottom: Sizes.sm,
-  },
-  status: {
-    fontSize: Sizes.fontMd,
-    fontFamily: Fonts.regular,
-    color: Colors.textLight,
-    marginBottom: Sizes.xs,
-  },
-  phone: {
-    fontSize: Sizes.fontSm,
-    fontFamily: Fonts.regular,
-    color: Colors.textLight,
-  },
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: Sizes.xl,
-  },
-  actionButton: {
-    alignItems: 'center',
-    padding: Sizes.lg,
-    borderRadius: Sizes.radiusXl,
-    backgroundColor: Colors.backgroundSecondary,
-    minWidth: 80,
-  },
-  actionButtonActive: {
-    backgroundColor: Colors.primary,
-  },
-  actionIcon: {
-    fontSize: 24,
-    marginBottom: Sizes.xs,
-  },
-  actionLabel: {
-    fontSize: Sizes.fontSm,
-    fontFamily: Fonts.medium,
-    color: Colors.textWhite,
-  },
-  footer: {
-    alignItems: 'center',
-    paddingBottom: Sizes.xl,
-  },
-  endCallButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: Colors.error,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  endCallIcon: {
-    fontSize: 30,
-    transform: [{ rotate: '135deg' }],
-  },
-});
+export default CallScreen;

@@ -1,7 +1,8 @@
+import { Colors, Fonts, Sizes } from "@/types";
 import { StyleSheet } from 'react-native';
-import { Sizes } from '@/constants';
 
-const createStyles = ({ colors, Fonts }: any) =>
+const createStyles = ({ colors, fonts, sizes }: 
+  { colors: Colors, fonts: Fonts, sizes: Sizes  }) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -14,11 +15,11 @@ const createStyles = ({ colors, Fonts }: any) =>
       flex: 1,
     },
     messagesContent: {
-      padding: Sizes.md,
-      paddingBottom: Sizes.xl,
+      padding: sizes.md,
+      paddingBottom: sizes.xl,
     },
     messageContainer: {
-      marginBottom: Sizes.md,
+      marginBottom: sizes.md,
     },
     userMessageContainer: {
       alignItems: 'flex-end',
@@ -28,21 +29,21 @@ const createStyles = ({ colors, Fonts }: any) =>
     },
     messageBubble: {
       maxWidth: '80%',
-      paddingHorizontal: Sizes.md,
-      paddingVertical: Sizes.sm,
-      borderRadius: Sizes.radiusLg,
+      paddingHorizontal: sizes.md,
+      paddingVertical: sizes.sm,
+      borderRadius: sizes.radiusLg,
     },
     userMessageBubble: {
       backgroundColor: colors.primary,
-      borderBottomRightRadius: Sizes.radiusXs,
+      borderBottomRightRadius: sizes.radiusXs,
     },
     aiMessageBubble: {
       backgroundColor: colors.card,
-      borderBottomLeftRadius: Sizes.radiusXs,
+      borderBottomLeftRadius: sizes.radiusXs,
     },
     messageText: {
-      fontSize: Sizes.fontMd,
-      fontFamily: Fonts.regular.fontFamily,
+      fontSize: sizes.fontMd,
+      fontWeight: fonts.weights.regular,
       lineHeight: 20,
     },
     userMessageText: {
@@ -52,67 +53,67 @@ const createStyles = ({ colors, Fonts }: any) =>
       color: colors.text,
     },
     quickActionsContainer: {
-      padding: Sizes.md,
+      padding: sizes.md,
       backgroundColor: colors.backgroundSecondary,
-      margin: Sizes.md,
-      borderRadius: Sizes.radiusMd,
+      margin: sizes.md,
+      borderRadius: sizes.radiusMd,
     },
     quickActionsTitle: {
-      fontSize: Sizes.fontSm,
-      fontFamily: Fonts.bold.fontFamily,
+      fontSize: sizes.fontSm,
+      fontWeight: fonts.weights.medium,
       color: colors.text,
-      marginBottom: Sizes.md,
+      marginBottom: sizes.md,
     },
     quickActionButton: {
       flexDirection: 'row',
       alignItems: 'center',
-      padding: Sizes.md,
+      padding: sizes.md,
       backgroundColor: colors.background,
-      borderRadius: Sizes.radiusSm,
-      marginBottom: Sizes.sm,
-      gap: Sizes.sm,
+      borderRadius: sizes.radiusSm,
+      marginBottom: sizes.sm,
+      gap: sizes.sm,
     },
     quickActionText: {
-      fontSize: Sizes.fontMd,
-      fontFamily: Fonts.medium.fontFamily,
-      color: colors.text,
+      fontSize: sizes.fontMd,
+      fontWeight: fonts.weights.medium,
+      color: colors.textSecondary,
     },
     inputContainer: {
       backgroundColor: colors.background,
       borderTopWidth: 1,
       borderTopColor: colors.border,
-      paddingHorizontal: Sizes.md,
-      paddingTop: Sizes.md,
-      paddingBottom: Sizes.lg,
+      paddingHorizontal: sizes.md,
+      paddingTop: sizes.md,
+      paddingBottom: sizes.lg,
     },
     typingIndicator: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: Sizes.sm,
+      paddingVertical: sizes.sm,
     },
     typingText: {
-      fontSize: Sizes.fontSm,
-      fontFamily: Fonts.regular.fontFamily,
+      fontSize: sizes.fontSm,
+      fontWeight: fonts.weights.regular,
       color: colors.textSecondary,
-      marginRight: Sizes.sm,
+      marginRight: sizes.sm,
     },
     inputWrapper: {
       flexDirection: 'row',
       alignItems: 'flex-end',
       backgroundColor: colors.backgroundSecondary,
-      borderRadius: Sizes.radiusLg,
-      paddingHorizontal: Sizes.md,
-      paddingVertical: Sizes.sm,
+      borderRadius: sizes.radiusLg,
+      paddingHorizontal: sizes.md,
+      paddingVertical: sizes.sm,
     },
     input: {
       flex: 1,
-      fontSize: Sizes.fontMd,
-      fontFamily: Fonts.regular.fontFamily,
+      fontSize: sizes.fontMd,
+      fontWeight: fonts.weights.regular,
       color: colors.text,
       maxHeight: 100,
-      paddingTop: Sizes.sm,
-      paddingBottom: Sizes.sm,
+      paddingTop: sizes.sm,
+      paddingBottom: sizes.sm,
     },
     sendButton: {
       width: 32,
@@ -121,7 +122,7 @@ const createStyles = ({ colors, Fonts }: any) =>
       backgroundColor: colors.primary,
       alignItems: 'center',
       justifyContent: 'center',
-      marginLeft: Sizes.sm,
+      marginLeft: sizes.sm,
     },
     sendButtonDisabled: {
       backgroundColor: colors.border,

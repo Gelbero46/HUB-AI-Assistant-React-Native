@@ -1,19 +1,19 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import { useTheme } from '@/context/theme-context';
+import { useNavigation } from '@react-navigation/native';
+import { Delete, MessageSquare, Phone, Plus } from 'lucide-react-native';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
-  View,
+  Alert,
+  Platform,
+  ScrollView,
   Text,
   TouchableOpacity,
-  Platform,
   Vibration,
-  ScrollView,
-  Alert,
+  View,
 } from 'react-native';
-import { Phone, Delete, Plus, MessageSquare } from 'lucide-react-native';
-import { useNavigation, useTheme } from '@react-navigation/native';
 // import { StackNavigationProp } from '@react-navigation/stack';
-
-import { RootStackParamList } from '@/types';
 import createDialScreenStyles from '@/constants/styles/DialScreenStyles';
+import { useRouter } from 'expo-router';
 
 // Types
 interface DialButtonData {
@@ -25,6 +25,7 @@ interface DialButtonProps {
   digit: string;
   letters?: string;
   onPress: (digit: string) => void;
+  Dstyles: any;
 }
 
 // type DialScreenNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -89,10 +90,8 @@ const triggerHapticFeedback = (): void => {
 };
 
 // Components
-const DialButton: React.FC<DialButtonProps> = React.memo(({ digit, letters, onPress }) => {
-  const { colors, fonts } = useTheme();
-  const styles = useMemo(() => createDialScreenStyles({ colors, fonts}), [colors, fonts]);
-
+const DialButton: React.FC<DialButtonProps> = React.memo(({ digit, letters, onPress, Dstyles }) => {
+  
   const handlePress = useCallback(() => {
     triggerHapticFeedback();
     onPress(digit);
@@ -100,14 +99,14 @@ const DialButton: React.FC<DialButtonProps> = React.memo(({ digit, letters, onPr
 
   return (
     <TouchableOpacity
-      style={styles.dialButton}
+      style={Dstyles.dialButton}
       onPress={handlePress}
       activeOpacity={0.7}
       accessibilityLabel={`Dial ${digit}${letters ? ` ${letters}` : ''}`}
       accessibilityRole="button"
     >
-      <Text style={styles.digitText}>{digit}</Text>
-      {letters && <Text style={styles.lettersText}>{letters}</Text>}
+      <Text style={Dstyles.digitText}>{digit}</Text>
+      {letters && <Text style={Dstyles.lettersText}>{letters}</Text>}
     </TouchableOpacity>
   );
 });
@@ -118,9 +117,9 @@ DialButton.displayName = 'DialButton';
 export const DialScreen: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const navigation = useNavigation();
-  const { colors, fonts } = useTheme();
-  
-  const styles = useMemo(() => createDialScreenStyles({ colors, fonts }), [colors, fonts]);
+  const { colors, fonts, sizes, theme } = useTheme();
+  const router = useRouter()
+  const styles = useMemo(() => createDialScreenStyles({ colors, fonts, sizes}), [theme]);
 
   const handleDigitPress = useCallback((digit: string): void => {
     setPhoneNumber(prev => prev + digit);
@@ -138,7 +137,9 @@ export const DialScreen: React.FC = () => {
     }
     
     triggerHapticFeedback();
-    navigation.navigate('callScreen', { phoneNumber });
+    console.log("okay")
+    router.push("/protected/callScreen" as never)
+    // navigation.navigate('/')
   }, [phoneNumber, navigation]);
 
   const handleMessagePress = useCallback((): void => {
@@ -207,6 +208,7 @@ export const DialScreen: React.FC = () => {
                   digit={item.digit}
                   letters={item.letters}
                   onPress={handleDigitPress}
+                  Dstyles={styles}
                 />
               ))}
             </View>

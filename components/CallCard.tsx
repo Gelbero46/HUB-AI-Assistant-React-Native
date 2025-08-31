@@ -1,15 +1,16 @@
 import React, { useMemo } from "react";
 import {
-  View,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
+  View,
 } from "react-native";
-import { useTheme } from "@react-navigation/native";
+// import { useTheme } from "@react-navigation/native";
+import { CallDirection } from "@/constants";
+import { useTheme } from "@/context/theme-context";
 import { Call } from "@/types";
-import { Sizes, CallDirection } from "@/constants";
 import { formatDistanceToNow } from "date-fns";
-import { PhoneIncoming, PhoneOutgoing, PhoneMissed } from "lucide-react-native";
+import { PhoneIncoming, PhoneMissed, PhoneOutgoing } from "lucide-react-native";
 
 interface CallCardProps {
   call: Call;
@@ -17,7 +18,7 @@ interface CallCardProps {
 }
 
 export const CallCard: React.FC<CallCardProps> = ({ call, onPress }) => {
-  const { colors, fonts: Fonts } = useTheme();
+  const { colors, fonts: Fonts, sizes: Sizes } = useTheme();
 
   const styles = useMemo(
     () =>
@@ -47,13 +48,13 @@ export const CallCard: React.FC<CallCardProps> = ({ call, onPress }) => {
         },
         name: {
           fontSize: Sizes.fontMd,
-          fontFamily: Fonts.bold.fontFamily,
+          fontWeight: Fonts.weights.bold,
           color: colors.text,
           flex: 1,
         },
         time: {
           fontSize: Sizes.fontSm,
-          fontFamily: Fonts.regular.fontFamily,
+          fontWeight: Fonts.weights.regular,
           color: colors.notification,
         },
         footer: {
@@ -63,17 +64,17 @@ export const CallCard: React.FC<CallCardProps> = ({ call, onPress }) => {
         },
         phone: {
           fontSize: Sizes.fontSm,
-          fontFamily: Fonts.regular.fontFamily,
+          fontWeight: Fonts.weights.regular,
           color: colors.notification,
         },
         duration: {
           fontSize: Sizes.fontSm,
-          fontFamily: Fonts.medium.fontFamily,
+          fontWeight: Fonts.weights.medium,
           color: colors.notification,
         },
         summary: {
           fontSize: Sizes.fontSm,
-          fontFamily: Fonts.regular.fontFamily,
+          fontWeight: Fonts.weights.light,
           color: colors.notification,
           marginTop: Sizes.xs,
           lineHeight: 18,

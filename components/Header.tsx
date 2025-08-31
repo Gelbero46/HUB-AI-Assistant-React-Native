@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  View,
+  StatusBar,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  StatusBar,
+  View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { HeaderProps } from '../types';
 // import { Colors, Sizes, Fonts } from '../constants';
-import { Sizes, Fonts } from '@/constants';
-import { useTheme } from '@react-navigation/native';
+// import { Sizes, Fonts } from '@/constants';
+// import { useTheme } from '@react-navigation/native';
+import { useTheme } from '@/context/theme-context';
 
 export const Header: React.FC<HeaderProps> = ({
   title,
@@ -20,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const insets = useSafeAreaInsets();
 
-  const {colors: Colors} = useTheme()
+  const {colors: Colors, fonts: Fonts, sizes: Sizes} = useTheme()
 
   const styles = React.useMemo( () => StyleSheet.create({
     container: {
@@ -39,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
     title: {
       flex: 1,
       fontSize: Sizes.fontLg,
-      fontFamily: Fonts.semiBold,
+      fontWeight: Fonts. weights.semiBold,
       color: Colors.text,
       textAlign: 'center',
     },

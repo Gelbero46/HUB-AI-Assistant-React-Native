@@ -1,22 +1,22 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-} from 'react-native';
 import { Header, LoadingSpinner } from '@/components';
+import { Colors } from '@/constants';
+import createStyles from '@/constants/styles/AIAssistantScreenStyle';
+import { useTheme } from '@/context/theme-context';
 import { useAI } from '@/hooks';
 import { AIResponse } from '@/types';
-import { useTheme } from '@react-navigation/native';
-import { Send, Phone, CheckSquare, Search } from 'lucide-react-native';
-import createStyles from '@/constants/styles/AIAssistantScreenStyle';
-import { Colors } from '@/constants';
+import { CheckSquare, Phone, Search, Send } from 'lucide-react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 interface Message {
   id: string;
@@ -26,8 +26,9 @@ interface Message {
 }
 
 const AIAssistantScreen: React.FC = () => {
-  const { colors, fonts: Fonts } = useTheme();
-  const styles = useMemo(() => createStyles({ colors, Fonts }), [colors, Fonts]);
+  const { colors, fonts, sizes,  theme } = useTheme();
+  console.log("Sizes", sizes)
+  const styles = useMemo(() => createStyles({ colors, fonts, sizes }), [theme]);
 
   const [messages, setMessages] = useState<Message[]>([
     {

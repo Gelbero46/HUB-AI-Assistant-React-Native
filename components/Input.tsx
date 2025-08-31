@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import {
-  View,
-  TextInput,
-  Text,
   StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { InputProps } from '../types';
 // import { Colors, Sizes, Fonts } from '../constants';
-import { Sizes, Fonts } from '@/constants';
-import { useTheme } from '@react-navigation/native';
+// import { Sizes, Fonts } from '@/constants';
+import { useTheme } from '@/context/theme-context';
+// import { useTheme } from '@react-navigation/native';
 
 export const Input: React.FC<InputProps> = ({
   label,
@@ -26,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [isSecureVisible, setIsSecureVisible] = useState(false);
 
-   const {colors: Colors} = useTheme()
+   const {colors: Colors, fonts: Fonts, sizes: Sizes, theme} = useTheme()
 
   const styles = React.useMemo( () => StyleSheet.create({
     container: {
@@ -34,7 +35,7 @@ export const Input: React.FC<InputProps> = ({
     },
     label: {
       fontSize: Sizes.fontSm,
-      // fontFamily: Fonts.medium,
+      fontFamily: Fonts.fontFamily,
       color: Colors.text,
       marginBottom: Sizes.xs,
     },
@@ -57,7 +58,7 @@ export const Input: React.FC<InputProps> = ({
       paddingHorizontal: Sizes.md,
       paddingVertical: Sizes.md,
       fontSize: Sizes.fontMd,
-      // fontFamily: Fonts.regular,
+      fontFamily: Fonts.regular,
       color: Colors.text,
     },
     eyeButton: {
@@ -68,11 +69,11 @@ export const Input: React.FC<InputProps> = ({
     },
     errorText: {
       fontSize: Sizes.fontSm,
-      // fontFamily: Fonts.regular,
+      fontWeight: Fonts.weights.regular,
       color: Colors.error,
       marginTop: Sizes.xs,
     }
-  }), [Colors, Sizes, Fonts] );
+  }), [theme] );
 
   const inputContainerStyles = [
     styles.inputContainer,

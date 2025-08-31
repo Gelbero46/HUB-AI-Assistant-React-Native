@@ -1,27 +1,30 @@
-import { Image } from "expo-image";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { useTheme } from "@react-navigation/native";
-import { useTheme as _useTheme } from "@/context/theme-context";
-import { useUser } from "@clerk/clerk-expo";
+import { useMemo } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+// import { useTheme } from "@react-navigation/native";
 import { SignOutButton } from "@/components/SignOutButton";
 import ProfileScreenStyle from "@/constants/styles/ProfileScreenStyle";
+import { useTheme } from "@/context/theme-context";
+import { useUser } from "@clerk/clerk-expo";
 
 // Lucide icons
 import {
-  Building,
-  Phone,
   Bell,
-  Shield,
+  Building,
+  ChevronRight,
   HelpCircle,
   Info,
-  ChevronRight,
+  Phone,
+  Shield,
 } from "lucide-react-native";
 
 export default function ProfileScreen() {
-  const { colors: Colors } = useTheme();
-  const { theme, toggleTheme } = _useTheme();
+  const { colors: Colors, fonts: Fonts, sizes: Sizes, theme } = useTheme();
+  // const { theme, toggleTheme } = _useTheme();
   const { user } = useUser();
-  const styles = ProfileScreenStyle({ Colors });
+  // console.log(user)
+  const styles = useMemo( () => 
+    ProfileScreenStyle({ Colors, Fonts, Sizes }),
+  [theme]);
 
   const menuItems = [
     { id: "1", title: "Business Setup", icon: Building, onPress: () => console.log("Business Setup") },
@@ -51,8 +54,8 @@ export default function ProfileScreen() {
             {user?.emailAddresses[0].emailAddress}
           </Text>
 
-          {user?.businessName && (
-            <Text style={styles.business}>{user.businessName}</Text>
+          {user?.unsafeMetadata?.businessName as string && (
+            <Text style={styles.business}>{user?.unsafeMetadata?.businessName as string}</Text>
           )}
         </View>
 

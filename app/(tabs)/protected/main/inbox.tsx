@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  RefreshControl,
-} from 'react-native';
-import { Header, CallCard, EmptyState, LoadingSpinner } from '@/components';
+import { CallCard, EmptyState, Header, LoadingSpinner } from '@/components';
+import { Sizes } from '@/constants';
+import { useTheme } from "@/context/theme-context";
 import { useCallStore, useConversationStore } from '@/store';
 import { Call, Conversation } from '@/types';
-import {Sizes } from '@/constants';
-import { useTheme } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 const InboxScreen: React.FC = () => {
 
-  const { colors: Colors } = useTheme();
+  const { colors: Colors, theme } = useTheme();
   const { calls } = useCallStore();
   const { conversations } = useConversationStore();
   const [isRefreshing, setIsRefreshing] = useState(false);

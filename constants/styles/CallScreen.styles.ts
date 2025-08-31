@@ -1,0 +1,133 @@
+import { Colors, Fonts, Sizes } from "@/types";
+import { StyleSheet } from 'react-native';
+
+export const createCallScreenStyles = (colors: Colors, fonts: Fonts, sizes: Sizes) => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.backgroundDark,
+    justifyContent: 'space-between',
+    paddingVertical: sizes.xxl,
+  },
+  header: {
+    alignItems: 'center',
+    paddingTop: sizes.xxl,
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: sizes.xl,
+    shadowColor: colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  avatarText: {
+    fontSize: 60,
+    color: colors.textWhite,
+  },
+  name: {
+    fontSize: sizes.fontTitle,
+    fontWeight: fonts.weights.semiBold,
+    color: colors.text,
+    marginBottom: sizes.sm,
+    textAlign: 'center',
+  },
+  status: {
+    fontSize: sizes.fontMd,
+    fontFamily: fonts.fontFamily,
+    color: colors.textLight,
+    marginBottom: sizes.xs,
+    textAlign: 'center',
+  },
+  phone: {
+    fontSize: sizes.fontSm,
+    fontFamily: fonts.fontFamily,
+    color: colors.textLight,
+    textAlign: 'center',
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: sizes.xl,
+    marginVertical: sizes.xl,
+  },
+  actionButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    // padding: sizes.sm,
+    borderRadius: sizes.radiusXl,
+    backgroundColor: colors.backgroundSecondary,
+    minWidth: 80,
+    minHeight: 80,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  actionButtonActive: {
+    backgroundColor: colors.primary,
+    shadowColor: colors.primary,
+    shadowOpacity: 0.4,
+  },
+  actionIconContainer: {
+    marginBottom: sizes.xs,
+    // padding: sizes.xs,
+  },
+  actionLabel: {
+    fontSize: sizes.fontSm,
+    fontWeight: fonts.weights.light,
+    color: colors.text,
+    textAlign: 'center',
+  },
+  footer: {
+    alignItems: 'center',
+    paddingBottom: sizes.xl,
+  },
+  endCallButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: colors.error,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: colors.error,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  endCallIcon: {
+    fontSize: 30,
+    transform: [{ rotate: '135deg' }],
+  },
+  statusContainer: {
+    backgroundColor: colors.backgroundSecondary + '40',
+    paddingHorizontal: sizes.lg,
+    paddingVertical: sizes.sm,
+    borderRadius: sizes.radiusLg,
+    marginVertical: sizes.md,
+  },
+  gradientOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '40%',
+    opacity: 0.1,
+  },
+});

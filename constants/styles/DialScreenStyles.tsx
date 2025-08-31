@@ -1,29 +1,28 @@
-// @/constants/styles/DialScreenStyles.ts
-import { StyleSheet, Platform } from 'react-native';
-import { Sizes,Colors } from '@/constants';
-import type { Theme } from "@react-navigation/native";
+import { Colors, Fonts, Sizes } from "@/types";
+import { StyleSheet } from 'react-native';
 
-export const createDialScreenStyles = ({ colors, fonts }: {colors: Theme['colors'], fonts: Theme['fonts'] }) =>
+export const createDialScreenStyles = ({ colors, fonts, sizes }: 
+  { colors: Colors, fonts: Fonts, sizes: Sizes  }) =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
-      paddingHorizontal: Sizes.lg,
+      paddingHorizontal: sizes.lg,
     },
     header: {
-      paddingTop: Platform.OS === 'ios' ? Sizes.xxl : Sizes.xxl,
-      paddingBottom: Sizes.lg,
+      paddingTop: sizes.xxl,
+      paddingBottom: sizes.lg,
       alignItems: 'center',
     },
     headerTitle: {
-      fontSize: Sizes.fontXl,
-      fontWeight: fonts.bold.fontWeight as any,
+      fontSize: sizes.fontXl,
+      fontWeight: fonts.weights.semiBold,
       color: colors.text,
-      fontFamily: fonts.bold.fontFamily,
+      fontFamily: fonts.fontFamily,
     },
     phoneNumberContainer: {
       alignItems: 'center',
-      paddingVertical: Sizes.lg,
+      paddingVertical: sizes.lg,
       flexDirection: 'row',
       justifyContent: 'center',
       minHeight: 60,
@@ -37,16 +36,16 @@ export const createDialScreenStyles = ({ colors, fonts }: {colors: Theme['colors
     },
     phoneNumberText: {
       textAlign: 'center',
-      fontSize: Sizes.fontXl,
-      fontWeight: fonts.regular.fontWeight as any,
+      fontSize: sizes.fontXl,
+      fontWeight: fonts.weights.regular,
       color: colors.text,
-      fontFamily: fonts.regular.fontFamily,
+      fontFamily: fonts.fontFamily,
       letterSpacing: 1,
     },
     deleteButton: {
-      marginLeft: Sizes.md,
-      padding: Sizes.sm,
-      borderRadius: Sizes.lg,
+      marginLeft: sizes.md,
+      padding: sizes.sm,
+      borderRadius: sizes.lg,
       backgroundColor: colors.background,
     },
     dialPadContainer: {
@@ -55,12 +54,12 @@ export const createDialScreenStyles = ({ colors, fonts }: {colors: Theme['colors
     },
     dialPad: {
       justifyContent: 'center',
-      paddingVertical: Sizes.sm,
+      paddingVertical: sizes.sm,
     },
     dialRow: {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      marginBottom: Sizes.md,
+      marginBottom: sizes.md,
     },
     dialButton: {
       width: 60,
@@ -69,43 +68,43 @@ export const createDialScreenStyles = ({ colors, fonts }: {colors: Theme['colors
     backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: Colors.shadow,
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
     },
     digitText: {
-      fontSize: Sizes.fontXl,
-      fontWeight: fonts.regular.fontWeight as any,
+      fontSize: sizes.fontXl,
+      fontWeight: fonts.weights.regular,
       color: colors.text,
-      fontFamily: fonts.regular.fontFamily,
+      fontFamily: fonts.fontFamily,
     },
     lettersText: {
-      fontSize: Sizes.fontSm,
-      fontWeight: fonts.medium.fontWeight as any,
+      fontSize: sizes.fontSm,
+      fontWeight: fonts.weights.medium,
       color: colors.text,
       marginTop: -2,
-      fontFamily: fonts.medium.fontFamily,
+      fontFamily: fonts.fontFamily,
     },
     actionsContainer: {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignItems: 'center',
-      paddingBottom: Sizes.lg,
+      paddingBottom: sizes.lg,
     },
     actionContainer: {
       alignItems: 'center',
-      paddingVertical: Sizes.lg,
+      paddingVertical: sizes.lg,
     },
     callButton: {
       width: 70,
       height: 70,
       borderRadius: 35,
-      backgroundColor: Colors.success,
+      backgroundColor: colors.success,
       justifyContent: 'center',
       alignItems: 'center',
-      shadowColor: Colors.shadow,
+      shadowColor: colors.shadow,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.2,
       shadowRadius: 8,
@@ -116,9 +115,9 @@ export const createDialScreenStyles = ({ colors, fonts }: {colors: Theme['colors
       shadowOpacity: 0.1,
     },
     quickActionButton: {
-      paddingHorizontal: Sizes.lg,
-      paddingVertical: Sizes.sm,
-      borderRadius: Sizes.lg,
+      paddingHorizontal: sizes.lg,
+      paddingVertical: sizes.sm,
+      borderRadius: sizes.lg,
       minWidth: 40,
       alignItems: 'center',
       justifyContent: 'center',

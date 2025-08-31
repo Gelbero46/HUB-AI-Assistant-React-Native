@@ -1,7 +1,4 @@
 import { CallDirection, CallStatus, MessageType, TaskPriority } from '../constants/Enums';
-import { Theme as NavigationTheme,  } from '@react-navigation/native';
-import { Colors } from '@/constants/Colors';
-import { Sizes } from '@/constants/Sizes';
 
 
 // User and Authentication Types
@@ -336,25 +333,87 @@ export interface FontConfig {
   bold: string;
 }
 
-export interface MyTheme extends NavigationTheme {
-  colors: NavigationTheme['colors'] & {
-    textSecondary: string;
-    success: string;
-    warning: string;
-    error: string;
-    info: string;
-    userMessage: string;
-    aiMessage: string;
-    incoming: string;
-    outgoing: string;
-    missed: string;
-    shadow: string;
-  };
-  fonts:  {
-    regular: string;
-    medium: string;
-    bold: string;
-    semiBold: string;
-  };
-  sizes: typeof Sizes;
+export interface Colors {
+  // Navigation colors (React Navigation compatible)
+  primary: string;
+  background: string;
+  card: string;
+  text: string;
+  border: string;
+  notification: string;
+  
+  // Extended colors for your app
+  backgroundDark: string;
+  backgroundSecondary: string;
+  surface: string;
+  onSurface: string;
+  textWhite: string;
+  textLight: string;
+  textSecondary: string;
+  secondary: string;
+  accent: string;
+  error: string;
+  success: string;
+  warning: string;
+  info: string;
+  primaryVariant: string;
+  secondaryVariant: string;
+  disabled: string;
+  placeholder: string;
+  shadow: string;
+  overlay: string;
+  divider: string;
 }
+
+export interface Fonts  {
+  fontFamily: string;
+  weights: {
+    light: '300';
+    regular: '400';
+    medium: '500';
+    semiBold: '600';
+    bold: '700';
+  };
+}
+
+export interface Sizes {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+  xxl: number;
+  
+  // Font sizes
+  fontXs: number,
+  fontSm: number,
+  fontMd: number,
+  fontLg: number,
+  fontXl: number,
+  fontXxl: number,
+  fontTitle: number,
+  fontHeader: number,
+  
+  // Icon sizes
+  iconXs: number,
+  iconSm: number,
+  iconMd: number,
+  iconLg: number,
+  iconXl: number,
+  
+  // Border radius
+  radiusXs: number,
+  radiusSm: number,
+  radiusMd: number,
+  radiusLg: number,
+  radiusXl: number,
+  radiusRound: number,
+}
+
+export interface AppTheme {
+  colors: Colors;
+  fonts: Fonts;
+  sizes: Sizes;
+}
+
+export type ThemeMode = "light" | "dark";
