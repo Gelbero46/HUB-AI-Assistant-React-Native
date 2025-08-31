@@ -69,7 +69,7 @@ const ProfileScreenStyle = ({ Colors, Fonts, Sizes }: {
     menuTitle: {
       flex: 1,
       fontSize: Sizes.fontMd,
-      fontWeight: Fonts.weights.medium,
+      fontWeight: Fonts.weights.light,
       color: Colors.text,
     },
     menuChevron: {

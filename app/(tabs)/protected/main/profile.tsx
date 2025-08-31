@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 // import { useTheme } from "@react-navigation/native";
 import { SignOutButton } from "@/components/SignOutButton";
+import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import ProfileScreenStyle from "@/constants/styles/ProfileScreenStyle";
 import { useTheme } from "@/context/theme-context";
 import { useUser } from "@clerk/clerk-expo";
@@ -38,6 +39,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        
         {/* Profile Header */}
         <View style={styles.profileHeader}>
           <View style={styles.avatar}>
@@ -57,6 +59,10 @@ export default function ProfileScreen() {
           {user?.unsafeMetadata?.businessName as string && (
             <Text style={styles.business}>{user?.unsafeMetadata?.businessName as string}</Text>
           )}
+
+          <ThemeToggleButton 
+          style={{ position: 'absolute', top: 50, right: 20 }} 
+        />
         </View>
 
         {/* Menu Section */}
