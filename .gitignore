@@ -32,6 +32,16 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
+server/.env*
+mobile/.env*
+
+
+# React Native
+# Android
+android/ 
+ios/
+
 
 # typescript
 *.tsbuildinfo
